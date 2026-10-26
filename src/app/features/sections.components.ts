@@ -205,7 +205,7 @@ export class CooldownComponent extends DaySection {
   <h3>Recovery notes</h3>
   <ul class="prose">@for (t of notes; track t) {<li>{{ t }}</li>}</ul>
   @if (v.next) {<div class="note"><strong>Next planned session: </strong>{{ v.next }}</div>}
-  <p class="small muted">FORMDAY is a general-purpose guide, not an individualised medical assessment.</p>
+  <p class="small muted">Xercise is a general-purpose guide, not an individualised medical assessment.</p>
 </fd-fold>
 }`,
 })

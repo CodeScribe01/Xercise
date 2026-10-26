@@ -1,73 +1,48 @@
-# FormdayAngular
+# Xercise
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.7.
+A beginner-first daily training guide. It shows today's workout with real exercise photos, guides you through each set with a rest timer, logs weights and reps on your device, and tracks your progress. The library has 169 exercises across 15 muscle groups.
 
-## Development server
+It is built with Angular 21 and runs as a static site. There is no server or account, and everything is saved in the browser.
 
-To start a local development server, run:
+Live site: https://codescribe01.github.io/Xercise/
 
-```bash
-ng serve
-```
+## Run locally
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+You need Node.js 20.19 or later, 22.12 or later, or 24 or later.
 
 ```bash
-ng generate component component-name
+npm install
+npm start          # dev server on http://localhost:4200
+npm run build      # static site in dist/xercise/browser
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Open the app with `?selftest=1` added to the address to run the built-in checks. The results appear at the bottom of the page.
 
-```bash
-ng generate --help
-```
+## Deploy to GitHub Pages
 
-## Building
+The workflow in `.github/workflows/deploy-pages.yml` builds the app and publishes it on every push to `main`.
 
-To build the project run:
+1. On GitHub, open the repository's **Settings**, then **Pages**.
+2. Under **Build and deployment**, set **Source** to **GitHub Actions**. This is a one-time step.
+3. Push to `main`, or open **Actions**, choose **Deploy to GitHub Pages** and click **Run workflow**. If a run failed before Pages was switched on, open it and click **Re-run all jobs**.
+4. When the run turns green, the site is live at `https://<your-user>.github.io/Xercise/`. The link is also shown on the run's summary page.
 
-```bash
-ng build
-```
+The app uses `<base href="./">` and relative paths for every file, so it works under the repository's sub-path without changes. Saved progress belongs to each browser and site address, so data from localhost does not appear on the live site.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+## Project layout
 
-## Running unit tests
+- `src/styles.css`: all styling.
+- `src/app/data/`: the weekly plan, exercises and media lists.
+- `src/app/core/`: state, storage, sessions, timers, dialogs, appearance and the exercise catalog.
+- `src/app/features/` and `src/app/shared/`: screens and reusable components.
+- `public/`: photos, running videos, fonts and the catalog data, each with its licence.
+- `tools/`: the catalog builder and test pages (see `tools/README.md`).
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-
-## FORMDAY
-
-Angular port of the single-file FORMDAY training guide (`../formday/index.html`). All styling lives in `src/styles.css`, workout data in `src/app/data/plan.ts`, state/storage in `src/app/core/`, UI in `src/app/features/` and `src/app/shared/`.
-
-- `npm start` — dev server on http://localhost:4200
-- `npm run build` — static output in `dist/formday-angular/browser` (uses `<base href="./">`, so it can be hosted from any folder on GitHub Pages or Netlify)
+## Update notes
 
 ### Upgrade notes (October 2026)
 
-- Exercise demonstrations use real start/finish photographs from [Free Exercise DB](https://github.com/yuhonas/free-exercise-db) (public domain, The Unlicense), shipped locally under `public/media/exercises/` with `LICENSE.txt`. The player (`src/app/shared/demo.component.ts`) cross-fades the two positions in a loop with play, pause, replay, loop, speed and fullscreen, and falls back to the animated figure guide when photos are missing or fail to load. Re-fetch photos with `node ../formday/src/tools/fetch-media.js`.
+- Exercise demonstrations use real start/finish photographs from [Free Exercise DB](https://github.com/yuhonas/free-exercise-db) (public domain, The Unlicense), shipped locally under `public/media/exercises/` with `LICENSE.txt`. The player (`src/app/shared/demo.component.ts`) cross-fades the two positions in a loop with play, pause, replay, loop, speed and fullscreen, and falls back to the animated figure guide when photos are missing or fail to load.
 - Library view: search, muscle / equipment / difficulty filters, favourites, add-to-session (`src/app/features/library.component.ts`, data in `src/app/data/media.ts`).
 - Guided session shows one exercise at a time with the demonstration, reps/weight steppers, one-tap set completion, inline rest timer, next-exercise preview (`src/app/features/active-exercise.component.ts`).
 - Progress: weekly goal, streak, volume, personal records, recent sessions, suggestions, heatmap. Everything is computed from the local log; nothing is sampled.
@@ -80,7 +55,6 @@ Angular port of the single-file FORMDAY training guide (`../formday/index.html`)
 - **Phones first**: day sections collapse into progress rows, the seven day tiles always fit, compact demo controls adapt to their card, the rest timer is a floating bar instead of a full sheet, and nothing overflows from 320 px up.
 - **Running videos**: real footage from Wikimedia Commons (`public/media/run/ATTRIBUTION.txt`; CC BY 4.0 and CC BY-SA 2.0, credited on screen).
 - **Settings → Appearance** (`src/app/core/ui.service.ts`, `src/app/features/settings.component.ts`): six themes, light and dark palettes with live contrast checks, workout colours, body and headline fonts (Barlow and Barlow Condensed bundled under the SIL OFL in `public/fonts/`), text size, headline weight/case/spacing, corner roundness, button shape, shadows, borders, spacing density, bottom bar style and labels, motion and autoplay, theme export/import and reset. Everything is saved with the rest of the data on the device.
-- The stylesheet `src/styles.css` is now maintained here; the single-file version in `../formday` keeps its own copy.
 - Test harnesses live in `tools/` (see `tools/README.md`).
 
 ### Full exercise library and mobile fixes (October 2026)

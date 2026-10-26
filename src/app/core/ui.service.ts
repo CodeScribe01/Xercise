@@ -150,11 +150,11 @@ export class UiService {
   }
   resetColours(mode: 'dark' | 'light'): void { const p = PRESETS.find(x => x.id === this.s.prefs.ui!.preset) || PRESETS[0]; this.update({ [mode]: { ...p.ui[mode] } } as Partial<UiPrefs>); }
   resetAll(): void { this.s.prefs.ui = defaultUi(); this.s.save(); this.apply(); this.s.toast('Appearance reset to the default Volt theme.'); }
-  exportJson(): string { const { v, preset, ...rest } = this.s.prefs.ui!; return JSON.stringify({ formdayTheme: 1, preset, ...rest }, null, 2); }
+  exportJson(): string { const { v, preset, ...rest } = this.s.prefs.ui!; return JSON.stringify({ xerciseTheme: 1, preset, ...rest }, null, 2); }
   /** Returns an error message, or null when the theme was applied. */
   importJson(text: string): string | null {
     let o: any; try { o = JSON.parse(text); } catch { return 'That is not valid JSON. Paste the whole theme exactly as it was exported.'; }
-    if (!o || typeof o !== 'object' || (!o.dark && !o.light && !o.fontDisplay)) return 'This does not look like a FORMDAY theme. It needs at least colours or fonts.';
+    if (!o || typeof o !== 'object' || (!o.dark && !o.light && !o.fontDisplay)) return 'This does not look like an Xercise theme. It needs at least colours or fonts.';
     this.s.prefs.ui = normalizeUi({ ...this.s.prefs.ui, ...o, preset: 'custom' }); this.s.save(); this.apply();
     return null;
   }

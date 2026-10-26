@@ -1,6 +1,6 @@
 // @ts-nocheck
 /* =====================================================================
-   FORMDAY — posed mannequin ("dummy") illustrations.
+   Xercise — posed mannequin ("dummy") illustrations.
    Each movement is 2–3 frames of a jointed figure drawn from joint
    coordinates in a 150×120 frame. Shared by the single-file app and the
    Angular app (copied to src/app/shared/mannequin.ts by build.sh).

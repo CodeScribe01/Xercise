@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "formday-angular": {
+    "xercise": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -83,10 +83,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "formday-angular:build:production"
+              "buildTarget": "xercise:build:production"
             },
             "development": {
-              "buildTarget": "formday-angular:build:development"
+              "buildTarget": "xercise:build:development"
             }
           },
           "defaultConfiguration": "development"

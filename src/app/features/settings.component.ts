@@ -134,7 +134,7 @@ const TRAINING: { key: keyof Prefs; legend: string; options: Opt[] }[] = [
       <section class="ap-sec" aria-labelledby="ap-sh"><h2 id="ap-sh">Share or back up a theme</h2>
         <div class="ctl"><label class="lab" for="thExp">Your current theme</label><textarea id="thExp" class="json" readonly [value]="exported()" (focus)="$any($event.target).select()"></textarea>
           <div class="btn-row"><button class="btn btn-sm" type="button" (click)="copy()"><fd-icon name="copy"/>Copy theme</button></div></div>
-        <div class="ctl"><label class="lab" for="thImp">Apply a theme someone shared</label><textarea id="thImp" class="json" placeholder="Paste a FORMDAY theme here" [value]="importText()" (input)="importText.set($any($event.target).value); importErr.set('')"></textarea>
+        <div class="ctl"><label class="lab" for="thImp">Apply a theme someone shared</label><textarea id="thImp" class="json" placeholder="Paste an Xercise theme here" [value]="importText()" (input)="importText.set($any($event.target).value); importErr.set('')"></textarea>
           @if (importErr()) {<p class="form-err" role="alert">{{ importErr() }}</p>}
           <div class="btn-row"><button class="btn btn-sm" type="button" [disabled]="!importText().trim()" (click)="doImport()"><fd-icon name="upload"/>Apply pasted theme</button></div></div>
         <div class="btn-row"><button class="btn btn-sm btn-danger" type="button" (click)="resetAll()"><fd-icon name="repeat"/>Reset all appearance</button></div>
@@ -183,13 +183,13 @@ const TRAINING: { key: keyof Prefs; legend: string; options: Opt[] }[] = [
       <p class="ink2">Your workout progress is saved on this device. Clearing browser data may erase it. Nothing is sent to a server.</p>
       <div class="btn-row">
         <button class="btn btn-sm" type="button" (click)="dlg.open('onboarding')"><fd-icon name="repeat"/>Run setup again</button>
-        <button class="btn btn-sm" type="button" (click)="x.share()"><fd-icon name="share"/>Share FORMDAY</button>
+        <button class="btn btn-sm" type="button" (click)="x.share()"><fd-icon name="share"/>Share Xercise</button>
         <button class="btn btn-sm" type="button" (click)="x.resetWeek()"><fd-icon name="trash"/>Reset this week</button>
         <button class="btn btn-sm btn-danger" type="button" (click)="x.clearAll()"><fd-icon name="trash"/>Clear all local data</button>
       </div>
     </section>
     <section class="ap-sec about" id="about" aria-labelledby="dt-safe"><h2 id="dt-safe">Safety</h2>
-      <p class="ink2">FORMDAY is general educational guidance for healthy adults, not a substitute for personalised professional advice. If you have a medical condition, an injury, have been inactive for a long time, or are unsure whether this plan suits you, talk to a qualified healthcare professional or coach before starting or increasing exercise.</p>
+      <p class="ink2">Xercise is general educational guidance for healthy adults, not a substitute for personalised professional advice. If you have a medical condition, an injury, have been inactive for a long time, or are unsure whether this plan suits you, talk to a qualified healthcare professional or coach before starting or increasing exercise.</p>
       <p class="ink2">Stop exercising if you feel pain, become unwell or develop concerning symptoms. Chest pain, fainting or unusual, severe breathlessness need urgent medical assessment.</p>
     </section>
     <section class="ap-sec about" aria-labelledby="dt-src"><h2 id="dt-src">Sources and credits</h2>
@@ -200,7 +200,7 @@ const TRAINING: { key: keyof Prefs; legend: string; options: Opt[] }[] = [
         <span>Exercise photos: <a href="https://github.com/yuhonas/free-exercise-db" target="_blank" rel="noopener noreferrer">Free Exercise DB</a>, public domain (The Unlicense).</span>
         @for (v of videos; track v.id) {<span>Video “<a [href]="v.page" target="_blank" rel="noopener noreferrer">{{ v.title }}</a>” by {{ v.author }}, <a [href]="v.licenceUrl" target="_blank" rel="noopener noreferrer">{{ v.licence }}</a>, via Wikimedia Commons.</span>}
         <span>Fonts: <a href="https://github.com/jpt/barlow" target="_blank" rel="noopener noreferrer">Barlow and Barlow Condensed</a>, SIL Open Font License 1.1.</span>
-        <span>Figure guides and app design: FORMDAY.</span>
+        <span>Figure guides and app design: Xercise.</span>
       </div>
     </section>
   </div>

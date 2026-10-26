@@ -1,4 +1,4 @@
-/* FORMDAY workout & exercise data (shared by every day; Mon/Fri and Tue/Sat reuse the same objects). */
+/* Xercise workout & exercise data (shared by every day; Mon/Fri and Tue/Sat reuse the same objects). */
 export interface Phase { kind: 'walk' | 'jog' | 'fast'; sec: number; label: string; instr: string; round?: number; rounds?: number }
 export interface Sub { key: string; name: string; equipment: string; forEq: string[]; steps: string[]; cues: string[]; note: string }
 export interface Exercise { id: string; name: string; tag: string; equipment: string; cat: 'compound' | 'isolation'; sets: number; reps: [number, number]; perSide?: boolean; rest: number; restRange: string; primary: string; secondary: string; illus: string; caution?: boolean; steps: string[]; mistakes: [string, string][]; cues: string[]; setup: string; alt?: { name: string; how: string }; group?: string; source?: "plan" | "catalog"; level?: string; safety: string; alts: string[] }
@@ -6,7 +6,7 @@ export interface Workout { id: string; kind: 'strength' | 'run'; w: string; name
 export interface Stretch { id: string; name: string; target: string; sec: number; how: string }
 
 /* =====================================================================
-   FORMDAY — workout & exercise data
+   Xercise — workout & exercise data
    Everything the app knows about the plan lives here. Repeated days
    (Mon/Fri, Tue/Sat) reference the same workout and exercise objects.
    ===================================================================== */

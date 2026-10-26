@@ -33,7 +33,7 @@ export class RadioGroupComponent { name = input.required<string>(); legend = inp
   template: `
 @switch (dlg.kind()) {
   @case ('onboarding') {
-    <fd-modal title="Welcome to FORMDAY" [locked]="true">
+    <fd-modal title="Welcome to Xercise" [locked]="true">
       <p class="ink2">Five quick questions so the guide fits you. You can change any answer later in settings, and skipping is fine.</p>
       @for (f of fields; track f.key) {<fd-radio-group [name]="'ob-' + f.key" [legend]="f.legend" [options]="f.options" [value]="draftVal(f.key)" (changed)="setDraft(f.key, $event)"/>}
       <div class="note warn"><strong>Before you start: </strong>this plan is general educational guidance for healthy adults. If you have a medical condition or injury, have been inactive for a long time, are pregnant, or are unsure the plan suits you, check with a qualified healthcare professional or coach first. Stop if you feel pain or unwell. Your data stays on this device.</div>
@@ -101,7 +101,7 @@ export class RadioGroupComponent { name = input.required<string>(); legend = inp
   }
   @case ('guide') {
     <fd-modal title="How to progress" (closed)="dlg.close()">
-      <div class="prose"><ol>@for (t of guide; track t) {<li>{{ t }}</li>}</ol><p class="small muted">Tap “History” on any exercise to see the weights and reps you used before. FORMDAY is a general-purpose guide, not an individualised medical assessment.</p></div>
+      <div class="prose"><ol>@for (t of guide; track t) {<li>{{ t }}</li>}</ol><p class="small muted">Tap “History” on any exercise to see the weights and reps you used before. Xercise is a general-purpose guide, not an individualised medical assessment.</p></div>
       <ng-container ngProjectAs="[actions]"><button class="btn btn-primary" type="button" (click)="dlg.close()">Got it</button></ng-container>
     </fd-modal>
   }

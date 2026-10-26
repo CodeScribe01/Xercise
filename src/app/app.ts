@@ -27,8 +27,8 @@ import { runSelfTest } from './selftest';
 <div class="shell"><div class="content">
 <header class="top" id="topbar"><div class="wrap">
   <div class="brand">
-    <svg class="logo" viewBox="0 0 34 34" aria-hidden="true" focusable="false"><rect width="34" height="34" rx="9" fill="var(--accent)"/><path d="M10 8h14v4.2h-9.3v4.4h8.2v4.2h-8.2V26H10z" fill="var(--accent-ink)"/></svg>
-    <div><b>FORMDAY</b><span>Your Daily Training Guide</span></div>
+    <svg class="logo" viewBox="0 0 34 34" aria-hidden="true" focusable="false"><rect width="34" height="34" rx="9" fill="var(--accent)"/><path d="M11.5 11.5l11 11M22.5 11.5l-11 11" stroke="var(--accent-ink)" stroke-width="4.6" stroke-linecap="round" fill="none"/></svg>
+    <div><b>Xercise</b><span>Your Daily Training Guide</span></div>
   </div>
   <div class="top-actions">
     <button class="icon-btn" type="button" [attr.aria-label]="dark() ? 'Switch to light theme' : 'Switch to dark theme'" [attr.aria-pressed]="dark()" (click)="s.toggleTheme()"><fd-icon [name]="dark() ? 'sun' : 'moon'"/></button>

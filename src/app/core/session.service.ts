@@ -162,7 +162,7 @@ export class SessionService {
   async share(): Promise<void> {
     const url = location.href;
     if (!/^https?:$/.test(location.protocol)) { this.s.toast('This page is open as a local file, so it has no public link yet. Host the built app (GitHub Pages or Netlify) to share it.', 6000); return; }
-    const data = { title: 'FORMDAY — Your Daily Training Guide', text: 'A beginner-first daily training guide.', url };
+    const data = { title: 'Xercise — Your Daily Training Guide', text: 'A beginner-first daily training guide.', url };
     if (navigator.share) { try { await navigator.share(data); this.s.toast('Shared.'); return; } catch (e: any) { if (e && e.name === 'AbortError') return; } }
     try { await navigator.clipboard.writeText(url); this.s.toast('Link copied to clipboard.'); this.s.announce('Link copied.'); return; } catch { /* fall through */ }
     this.dlg.open('copylink', { url });
