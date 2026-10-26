@@ -1,0 +1,4 @@
+Exercise demonstration photos in this folder come from Free Exercise DB
+https://github.com/yuhonas/free-exercise-db
+Released into the public domain under The Unlicense (https://unlicense.org).
+Folder names are the dataset ids; 0.jpg = start position, 1.jpg = finish position.

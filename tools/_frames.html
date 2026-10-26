@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>FORMDAY phone frames (test harness)</title>
+<style>
+body{margin:0;background:#222;color:#eee;font:12px system-ui;padding:10px}
+.row{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px}
+figure{margin:0}figcaption{margin-bottom:4px;font-weight:700}
+iframe{border:0;background:#000;display:block;border-radius:12px}
+pre{white-space:pre-wrap;font-size:11px}
+</style></head><body>
+<div class="row" id="r1"></div>
+<div class="row" id="r2"></div>
+<pre id="out">running</pre>
+<script>
+const Q = new URLSearchParams(location.search);
+const sets = (Q.get('set') || 'a') === 'a'
+  ? [[320, '?view=home&day=mon', 'Today · 320px'], [375, '?focus=mon&screen=3', 'Guided set · 375px'], [390, '?view=home&day=wed', 'Run day · 390px'], [430, '?view=settings&tab=appearance', 'Appearance · 430px']]
+  : [[320, '?view=library', 'Library · 320px'], [360, '?view=progress', 'Progress · 360px'], [375, '?focus=wed', 'Guided run · 375px'], [414, '?view=settings&tab=training', 'Training settings · 414px']];
+const scroll = Number(Q.get('scroll') || 0), H = Number(Q.get('h') || 760);
+const out = [];
+sets.forEach(([w, q, label], i) => {
+  const fig = document.createElement('figure');
+  fig.innerHTML = '<figcaption>' + label + '</figcaption>';
+  const f = document.createElement('iframe'); f.width = w; f.height = H; f.src = '/' + q; fig.append(f);
+  document.getElementById('r1').append(fig);
+  f.addEventListener('load', () => setTimeout(() => {
+    const d = f.contentDocument, win = f.contentWindow;
+    if (scroll) win.scrollTo(0, scroll);
+    let right = 0, what = '';
+    d.querySelectorAll('#main *:not(.days):not(.days *):not(.stepper):not(.stepper *):not(.chips-row):not(.chips-row *):not(.filters):not(.filters *):not(.seg):not(.seg *)').forEach(e => { const r = e.getBoundingClientRect().right; if (r > right) { right = r; what = e.tagName.toLowerCase() + '.' + (typeof e.className === 'string' ? e.className : ''); } });
+    const doc = d.documentElement;
+    out.push(label + ': page ' + doc.scrollWidth + ' / ' + doc.clientWidth + (doc.scrollWidth > doc.clientWidth + 1 ? '  OVERFLOW' : '  ok') + '; widest element ' + Math.round(right) + (right > doc.clientWidth + 1 ? ' TOO WIDE ' + what : ' ok') + '; tap targets <40px: ' + (() => { const small = Array.from(d.querySelectorAll('button, a[href], input, select, summary')).filter(el => { const t = el.closest('label') || el; const r = t.getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.height < 36 && !el.closest('.refs, .credit, .demo-credit, footer, .about'); }); return small.length + (small.length ? ' [' + small.slice(0, 6).map(el => el.tagName.toLowerCase() + '.' + (el.className || '').toString().split(' ')[0] + '(' + Math.round((el.closest('label') || el).getBoundingClientRect().height) + ')').join(', ') + ']' : ''); })());
+    document.getElementById('out').textContent = out.join('\n');
+  }, 2500));
+});
+</script></body></html>

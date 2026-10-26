@@ -1,0 +1,12 @@
+Running videos in this folder come from Wikimedia Commons and are used unmodified
+(Commons' own transcodes, poster frames from Commons' thumbnails).
+
+running-form.webm / running-form.mov / running-form.jpg
+  "Running form" by Bill Sodeman
+  https://commons.wikimedia.org/wiki/File:Running_form.ogv
+  Licence: CC BY-SA 2.0  https://creativecommons.org/licenses/by-sa/2.0/
+
+jogger.webm / jogger.jpg
+  "Jogging - near arakawa river - tokyo japan - 2022 may 3" by Nesnad
+  https://commons.wikimedia.org/wiki/File:Jogging_-_near_arakawa_river_-_tokyo_japan_-_2022_may_3.webm
+  Licence: CC BY 4.0  https://creativecommons.org/licenses/by/4.0/

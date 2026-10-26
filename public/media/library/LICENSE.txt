@@ -1,0 +1,4 @@
+﻿Exercise library photos come from Free Exercise DB
+https://github.com/yuhonas/free-exercise-db
+Released into the public domain under The Unlicense (https://unlicense.org).
+Resized to 640 px wide for the web. Folder names are dataset ids; 0.jpg = start, 1.jpg = finish.

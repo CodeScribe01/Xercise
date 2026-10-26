@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>FORMDAY mobile audit (test harness)</title>
+<style>body{margin:0;background:#333;color:#eee;font:12px system-ui;padding:8px}.row{display:flex;gap:10px;align-items:flex-start}figure{margin:0}figcaption{font-weight:700;margin-bottom:3px}iframe{border:0;display:block;background:#000}pre{white-space:pre-wrap;font-size:11px}</style></head><body>
+<div class="row" id="r"></div><pre id="out">running</pre>
+<script>
+const Q = new URLSearchParams(location.search), W = Number(Q.get('w') || 360), H = Number(Q.get('h') || 2600), set = Q.get('set') || '1';
+/* [url, label, action run inside the frame after load] */
+const SETS = {
+  '1': [['?view=home&day=mon', 'Today (Mon)', null],
+        ['?view=home&day=mon', 'Exercise card open', d => { d.querySelector('.ex .main').click(); setTimeout(() => d.querySelector('fd-exercise-card').scrollIntoView(), 300); }],
+        ['?view=library', 'Library', null],
+        ['?view=library', 'Exercise detail', d => { d.querySelector('.muscle-tile').click(); setTimeout(() => d.querySelector('.lib-row .t').click(), 400); }]],
+  '2': [['?focus=mon&screen=3', 'Guided set', null],
+        ['?view=progress', 'Progress', null],
+        ['?view=settings&tab=appearance', 'Appearance', null],
+        ['?view=home&day=wed', 'Run day', null]],
+  '4': [['?view=library', 'Library: muscle groups', null],
+        ['?view=library', 'Library: Chest', d => d.querySelector('.muscle-tile').click()],
+        ['?view=library', 'Library: Abs', d => Array.from(d.querySelectorAll('.muscle-tile')).find(t => t.textContent.includes('Abs')).click()],
+        ['?view=library', 'Detail: library exercise', d => { Array.from(d.querySelectorAll('.muscle-tile')).find(t => t.textContent.includes('Quads')).click(); setTimeout(() => d.querySelectorAll('.lib-row .t')[2].click(), 400); }]],
+  '3': [['?view=settings&tab=training', 'Training settings', null],
+        ['?view=settings&tab=data', 'Data & about', null],
+        ['?view=home&day=mon', 'Warm-up open', d => { d.querySelector('#sec-warmup > summary').click(); setTimeout(() => d.querySelector('#sec-warmup').scrollIntoView(), 300); }],
+        ['?view=home&day=sun', 'Sunday', null]],
+};
+const out = [], row = document.getElementById('r');
+(SETS[set] || SETS['1']).forEach(([q, label, act]) => {
+  const fig = document.createElement('figure'); fig.innerHTML = '<figcaption>' + label + ' · ' + W + 'px</figcaption>';
+  const f = document.createElement('iframe'); f.width = W; f.height = H; f.src = '/' + q; fig.append(f); row.append(fig);
+  f.addEventListener('load', () => setTimeout(() => {
+    const d = f.contentDocument;
+    if (act) try { act(d); } catch (e) { out.push(label + ': action failed ' + e.message); }
+    setTimeout(() => {
+      const doc = d.documentElement; const bad = [];
+      d.querySelectorAll('body *').forEach(e => {
+        if (e.closest('.days, .chips-row, .filters, .seg, .stepper, .sr-only, .tabbar, .mini-timer, .toast, .more-row')) return;
+        const r = e.getBoundingClientRect(); if (!r.width || !r.height) return;
+        if (r.right > W + 1 || r.left < -1) bad.push(e.tagName.toLowerCase() + '.' + String(e.className || '').split(' ')[0] + ' [' + Math.round(r.left) + '..' + Math.round(r.right) + ']');
+        if (e.scrollWidth > e.clientWidth + 2 && getComputedStyle(e).overflowX === 'visible' && e.children.length === 0 && !/^(svg|path|circle|input|textarea|select|img|video)$/i.test(e.tagName)) bad.push('text overflows ' + e.tagName.toLowerCase() + '.' + String(e.className || '').split(' ')[0] + ' "' + (e.textContent || '').trim().slice(0, 30) + '"');
+      });
+      out.push(label + ': page ' + doc.scrollWidth + '/' + W + '; issues ' + bad.length + (bad.length ? ': ' + bad.slice(0, 8).join(' | ') : ''));
+      document.getElementById('out').textContent = out.join('\n');
+    }, 1200);
+  }, 2200));
+});
+</script></body></html>

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>FORMDAY theme check (test harness)</title>
+<style>body{margin:0;background:#222;color:#eee;font:12px system-ui;padding:10px}.row{display:flex;gap:14px}figure{margin:0}figcaption{margin-bottom:4px;font-weight:700}iframe{border:0;display:block;border-radius:12px;background:#000}pre{white-space:pre-wrap}</style></head><body>
+<div class="row" id="r"></div><pre id="out">running</pre>
+<script>
+const preset = new URLSearchParams(location.search).get('preset') || 'Paper';
+const out = [], row = document.getElementById('r');
+function frame(w, q, label) { const fig = document.createElement('figure'); fig.innerHTML = '<figcaption>' + label + '</figcaption>'; const f = document.createElement('iframe'); f.width = w; f.height = 760; f.src = '/' + q; fig.append(f); row.append(fig); return f; }
+try { localStorage.removeItem('formday.v1'); } catch (e) {}
+const s = frame(390, '?view=settings&tab=appearance', preset + ' via Settings · 390px');
+s.addEventListener('load', () => setTimeout(() => {
+  const d = s.contentDocument;
+  const btn = Array.from(d.querySelectorAll('.preset')).find(b => b.textContent.trim().startsWith(preset));
+  if (!btn) { out.push('preset button not found'); document.getElementById('out').textContent = out.join('\n'); return; }
+  btn.click();
+  setTimeout(() => {
+    const st = d.documentElement.style;
+    out.push('after tapping ' + preset + ': --bg ' + st.getPropertyValue('--bg') + ', --accent ' + st.getPropertyValue('--accent') + ', display font ' + st.getPropertyValue('--font-display').split(',')[0] + ', pressed ' + btn.getAttribute('aria-pressed'));
+    const saved = JSON.parse(localStorage.getItem('formday.v1') || '{}');
+    out.push('saved preset: ' + (saved.prefs && saved.prefs.ui && saved.prefs.ui.preset) + ', theme: ' + (saved.prefs && saved.prefs.theme));
+    [[360, '?view=home&day=thu', 'Today · 360px'], [375, '?focus=tue&screen=3', 'Guided set · 375px'], [320, '?view=library', 'Library · 320px']].forEach(([w, q, l]) => {
+      const f = frame(w, q, l);
+      f.addEventListener('load', () => setTimeout(() => { const st2 = f.contentDocument.documentElement.style; out.push(l + ': --bg ' + st2.getPropertyValue('--bg') + ', overflow ' + (f.contentDocument.documentElement.scrollWidth > w + 1 ? 'YES' : 'no')); document.getElementById('out').textContent = out.join('\n'); }, 2500));
+    });
+    document.getElementById('out').textContent = out.join('\n');
+  }, 600);
+}, 2500));
+</script></body></html>
